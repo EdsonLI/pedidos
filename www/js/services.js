@@ -12,7 +12,8 @@ angular.module('starter')
       geocoder.geocode({'location': latlng}, function(results, status) {
         if (status === google.maps.GeocoderStatus.OK) {
           if (results[1]) {
-            alert(results[1].formatted_address);
+            sessionStorage.setItem('endereco', results[1].formatted_address);
+            //alert(results[1].formatted_address);
             //document.getElementById("endereco").value(results[1].formatted_address);
             //infowindow.open(map, marker);
           } else {
@@ -27,7 +28,7 @@ angular.module('starter')
     }
     var onError = function(error) {
       //alert("Code: "+error.code+"\nMensagem: "+error.message);
-    }
+    }    
 
     var promise = $http.get(url).then(function(response) {
       var json = JSON.stringify(response.data);
