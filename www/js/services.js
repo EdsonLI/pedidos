@@ -11,11 +11,26 @@ angular.module('starter')
 
       geocoder.geocode({'location': latlng}, function(results, status) {
         if (status === google.maps.GeocoderStatus.OK) {
-          if (results[1]) {
+          if (results[3]) {
+
+              console.info(results[3].address_components[0].long_name);
+              let cep = results[3].address_components[0].long_name;
+                  cep = cep.replace(/\.|\-/g, '');
+
+              //Cria um elemento javascript.
+              var script = document.createElement('script');
+
+              //Sincroniza com o callback.
+              script.src = '//viacep.com.br/ws/'+ cep + '/json/?callback=meu_callback';
+              document.body.appendChild(script);
+          } else {
+              alert('Sem resultados de endereço!');
+          }
+          /*if (results[1]) {
             sessionStorage.setItem('endereco', results[1].formatted_address);
           } else {
             alert('No results found');
-          }
+          }*/
         } else {
           alert('Geocoder failed due to: ' + status);
         }
@@ -48,3 +63,13 @@ angular.module('starter')
       }
     }
   });
+
+  function meu_callback(conteudo) {
+      if (!("erro" in conteudo)) {
+          // cria um identificador na sessionStorage com os dados do endereco
+          sessionStorage.setItem('endereco', conteudo.logradouro+', '+conteudo.bairro+', '+conteudo.localidade+'/'+conteudo.uf+' | Informe o número: ');
+      } else {
+          // se o CEP não for encontrado no webservice
+          alert("CEP não encontrado");
+      }
+  }
