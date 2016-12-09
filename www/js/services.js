@@ -3,19 +3,16 @@ angular.module('starter')
     var url = 'http://cozinhapp.sergiolopes.org/produtos?random=1';
     var onSuccess = function(position) {
       var coords = position.coords;
-      console.log("Latitude: " + coords.latitude + ", Longitude: " + coords.longitude);
-      alert("Latitude: "+coords.latitude+", Longitude: "+coords.longitude);
-      var geocoder = new google.maps.Geocoder;
-      /*var latitudeLongitudeStr = '-28.235927,-52.357881';
-      var latlngStr = latitudeLongitudeStr.split(',', 2);*/
-      var latlng = {lat: parseFloat(coords.latitude), lng: parseFloat(coords.longitude)};
+      //console.log("Latitude: " + coords.latitude + ", Longitude: " + coords.longitude);
+      //alert("Latitude: "+coords.latitude+", Longitude: "+coords.longitude);
+
+      var geocoder = new google.maps.Geocoder,
+          latlng = {lat: parseFloat(coords.latitude), lng: parseFloat(coords.longitude)};
+
       geocoder.geocode({'location': latlng}, function(results, status) {
         if (status === google.maps.GeocoderStatus.OK) {
           if (results[1]) {
             sessionStorage.setItem('endereco', results[1].formatted_address);
-            //alert(results[1].formatted_address);
-            //document.getElementById("endereco").value(results[1].formatted_address);
-            //infowindow.open(map, marker);
           } else {
             alert('No results found');
           }
@@ -23,12 +20,10 @@ angular.module('starter')
           alert('Geocoder failed due to: ' + status);
         }
       });
-      //var json_endereco = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=-28.235927,-52.357881';
-      //console.info(json_endereco);
     }
     var onError = function(error) {
       //alert("Code: "+error.code+"\nMensagem: "+error.message);
-    }    
+    }
 
     var promise = $http.get(url).then(function(response) {
       var json = JSON.stringify(response.data);

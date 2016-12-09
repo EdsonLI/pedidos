@@ -9,7 +9,6 @@ angular.module('starter')
   });
 
 angular.module('starter').controller('DetalheController', function($scope, ProdutosService, $stateParams) {
-  //document.getElementById("endereco").value(sessionStorage.getItem('endereco'));
   ProdutosService.lista().then(function(dados) {
     $scope.bolo = dados[$stateParams.boloId];
   });
@@ -19,8 +18,8 @@ angular.module('starter').controller('PedidoController', function($scope, Produt
   $state, $ionicPopup, $ionicLoading) {
   ProdutosService.lista().then(function(dados) {
     $scope.bolo = dados[$stateParams.boloId];
-    document.getElementById('endereco').value = sessionStorage.getItem('endereco');
-    console.info(sessionStorage.getItem('endereco'));
+    //console.info('sesStor_controller: ', sessionStorage.getItem('endereco'));
+    $scope.dados.endereco = sessionStorage.getItem('endereco');
   });
   $scope.dados = {};
 
