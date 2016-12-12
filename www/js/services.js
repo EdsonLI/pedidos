@@ -6,31 +6,35 @@ angular.module('starter')
       //console.log("Latitude: " + coords.latitude + ", Longitude: " + coords.longitude);
       //alert("Latitude: "+coords.latitude+", Longitude: "+coords.longitude);
 
+      var isAndroid = ionic.Platform.isAndroid();
+
       var geocoder = new google.maps.Geocoder,
           latlng = {lat: parseFloat(coords.latitude), lng: parseFloat(coords.longitude)};
 
       geocoder.geocode({'location': latlng}, function(results, status) {
         if (status === google.maps.GeocoderStatus.OK) {
-          if (results[3]) {
-
-              console.info(results[3].address_components[0].long_name);
-              let cep = results[3].address_components[0].long_name;
-                  cep = cep.replace(/\.|\-/g, '');
-
-              //Cria um elemento javascript.
-              var script = document.createElement('script');
-
-              //Sincroniza com o callback.
-              script.src = '//viacep.com.br/ws/'+ cep + '/json/?callback=meu_callback';
-              document.body.appendChild(script);
+          if(isAndroid) {
+            if (results[1]) {
+              sessionStorage.setItem('endereco', results[1].formatted_address);
+            } else {
+                alert('Sem resultados de endereço!');
+            }
           } else {
-              alert('Sem resultados de endereço!');
+            if (results[3]) {
+                //console.info(results[3].address_components[0].long_name);
+                let cep = results[3].address_components[0].long_name;
+                    cep = cep.replace(/\.|\-/g, '');
+
+                // cria um elemento javascript
+                var script = document.createElement('script');
+
+                // sincroniza com o callback
+                script.src = '//viacep.com.br/ws/'+ cep + '/json/?callback=meu_callback';
+                document.body.appendChild(script);
+            } else {
+                alert('Sem resultados de endereço!');
+            }
           }
-          /*if (results[1]) {
-            sessionStorage.setItem('endereco', results[1].formatted_address);
-          } else {
-            alert('No results found');
-          }*/
         } else {
           alert('Geocoder failed due to: ' + status);
         }

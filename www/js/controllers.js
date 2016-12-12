@@ -23,6 +23,9 @@ angular.module('starter').controller('PedidoController', function($scope, Produt
   });
   $scope.dados = {};
 
+  var isAndroid = ionic.Platform.isAndroid();
+  console.info(isAndroid);
+
   $scope.fecharPedido = function() {
     $ionicLoading.show();
 
@@ -34,6 +37,9 @@ angular.module('starter').controller('PedidoController', function($scope, Produt
           $scope.dados.endereco
       }
     }).then(function() {
+      if(isAndroid) {
+        navigator.vibrate([1000, 1000, 1000, 1000, 1000]);
+      }
       //caso ok, mostra pop-up confirmando e então navega pra home
       $ionicPopup.alert({
         title: "Pedido confirmado!",
@@ -42,6 +48,9 @@ angular.module('starter').controller('PedidoController', function($scope, Produt
         $state.go('home');
       });
     }).catch(function(erro) {
+      if(isAndroid) {
+        navigator.vibrate([3000, 1000, 3000, 1000, 3000]);
+      }
       //caso de erro mostra alerta com erro
       $ionicPopup.alert({
         title: "Erro no pedido",

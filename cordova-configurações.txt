@@ -1,0 +1,162 @@
+Java Development Kit e Java SE
+Android SDK
+Apache Ant
+NodeJS
+Git
+Netbeans >= 8
+Cordova
+
+
+-------
+git --version
+git config --list
+node -v
+---------------------
+PROXY
+----------------------
+npm config set proxy http://proxy.company.com:8080
+npm config set https-proxy http://proxy.company.com:8080
+
+
+para retirar
+npm config rm proxy
+npm config rm https-proxy
+
+----------------------
+INSTALAR CORDOVA
+----------------------
+npm -d install -g cordova
+
+cordova --version
+
+----------------------
+CRIAR APP
+----------------------
+cordova create teste com.exemplo.teste Teste
+
+para executar os comandos deve estar na pasta do projeto:
+
+cd teste
+
+-----------------------------
+RODAR NO EMULADOR/DISPOSITIVO 
+-----------------------------
+cordova platform add android
+
+Rodar no emulador:
+cordova emulate android
+
+Rodar no dispositivo:
+cordova run android
+
+Gerar apk:
+cordova build android
+
+gera em pasta_projeto\platforms\android\build\outputs\apk
+
+Forçar execução no device
+cordova run android --device
+
+----------------------
+RODAR NO BROWSER
+----------------------
+cordova platform add browser
+cordova run browser
+
+----------------------
+INSPECIONAR APP 
+----------------------
+cordova plugin add cordova-plugin-console
+
+chrome://inspect/
+
+Link Inspect
+
+console.log('mostrar algo no console');
+
+-----------------------------
+PLUGIN GEOLOCALIZAÇÃO (MAPS)
+-----------------------------
+
+cordova plugin add cordova-plugin-geolocation
+
+
+Para criar Chave acessar:
+
+https://console.developers.google.com/
+
+
+-----------------------------
+PLUGIN SCANNER QRCODE
+-----------------------------
+
+cordova plugin add phonegap-plugin-barcodescanner --save
+
+
+---------------------------------------
+Variáveis de ambiente
+---------------------------------------
+
+ANT_HOME = c:\Program Files\Ant
+
+ANDROID_HOME = C:\android-sdk
+
+
+acrescentar no PATH
+
+%ANT_HOME%\bin;%ANDROID_HOME%\tools;%ANDROID_HOME%\platform-tools
+
+
+-------------------------------------------
+
+Documentação CORDOVA:
+https://cordova.apache.org/
+
+
+
+
+IONIC:
+
+Instalação:
+
+npm install -g ionic
+
+
+---------------------------------------
+Criar projeto
+---------------------------------------
+
+ionic start --appname "Só de Cenoura em Casa" --id org.ifsul.pedidapp pedido blank
+
+---------------------------------------
+Rodar no dispositivo Browser
+---------------------------------------
+ionic serve
+
+ionic serve --address localhost
+---------------------------------------
+Rodar no dispositivo Android
+---------------------------------------
+
+ionic platform add android
+
+ionic run android
+
+
+---------------------------------------
+Para gerar todos os ícones necessários para cada plataforma
+---------------------------------------
+
+ionic resources
+
+
+NO xampp/htdocs criar pasta "server"
+
+criar arquivo servico.php
+
+
+
+
+
+
+
